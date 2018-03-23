@@ -15,10 +15,8 @@
 			ログイン画面<span class="badge badge-secondary"></span>
 		</h1>
 
-		<c:if test="${errMsg != null}" >
-	    <div class="alert alert-danger" role="alert">
-		  ${errMsg}
-		</div>
+		<c:if test="${errMsg != null}">
+			<div class="alert alert-danger" role="alert">${errMsg}</div>
 		</c:if>
 
 
@@ -30,15 +28,15 @@
 					<div class="form-group row">
 						<label for="staticEmail" class="col-sm-2 col-form-label">ログインID</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="staticEmail"
-								placeholder="ID">
+							<input type="text" name="loginId" id="inputLoginId"
+								class="form-control" placeholder="ログインID" required autofocus>
 						</div>
 					</div>
 					<div class="form-group row">
 						<label for="inputPassword" class="col-sm-2 col-form-label">パスワード</label>
 						<div class="col-sm-10">
-							<input type="password" class="form-control" id="inputPassword"
-								placeholder="Password">
+							<input type="password" name="password" id="inputPassword"
+								class="form-control" placeholder="パスワード" required>
 						</div>
 					</div>
 					<button class="btn btn-primary" type="submit">ログイン</button>

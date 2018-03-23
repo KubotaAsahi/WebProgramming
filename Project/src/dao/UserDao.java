@@ -84,7 +84,7 @@ public class UserDao {
 					int id = rs.getInt("id");
 					String loginId = rs.getString("login_id");
 					String name = rs.getString("name");
-					Date birthDate = rs.getDate("dirth_dete");
+					Date birthDate = rs.getDate("birth_date");
 					String password = rs.getString("password");
 					String createDate = rs.getString("create_date");
 					String updateDate = rs.getString("update_date");
@@ -108,7 +108,57 @@ public class UserDao {
 		}
 	return userList;
 	}
+
+//新規登録に使うメゾット
+
+	public User nextUser(String loginId,String name,String birthDate,String password) {
+
+		Connection conn = null;
+		try {
+			//INSERT文を準備
+		String sql = "INSERT INTO user VALUES (login_id = ? and password = ? and "
+				+ " name = ? and birth_date = ?)";
+
+		//INSERT文を実行し、結果表を取得
+		PreparedStatement pStmt = conn.prepareStatement(sql);
+		pStmt.setString(1, loginId);
+		pStmt.setString(2, password);
+		pStmt.setString(3, name);
+		pStmt.setString(4, birthDate);
+		ResultSet rs = pStmt.executeQuery();
+
+
+		//主キーに紐づくレコードは一件のみなので、rs.next()は一回だけ行う
+		if(!rs.next()) {
+			return null;
+		}
+		String loginIdData = rs.getString("login_Id");
+		String nameData = rs.getString("name");
+		String birthDate2 = rs.getString("birth_date");
+		String passwordDate = rs.getString("password");
+
+		return new User(loginIdData,nameData,birthDate2,passwordDate);
+
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			//データベース切断
+			if(conn != null){
+				try {
+					conn.close();
+				}catch (SQLException e) {
+					// TODO: handle exception
+					e.printStackTrace();
+					return null;
+				}
+			}
+		}
+
+		return null;
+
+	}
 }
+
 
 
 
